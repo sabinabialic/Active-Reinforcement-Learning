@@ -20,6 +20,9 @@ class td_qlearning:
 
         # q = Q(state,action) + alpha(r(state) - Q(state, action) + gamma(numpy.max(Q(next state, next action) in range (possible action))))
 
+        # update the q value for the current state
+        self.value = q
+
         # Return the q-value for the state-action pair
         return q
 
