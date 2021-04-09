@@ -71,8 +71,7 @@ class td_qlearning:
         possibleActions = moves(state)
 
         allQs = []
-        for i in possibleActions:
-            # Does not work
+        for i in range(len(possibleActions)):
             allQs.append(t.qvalue(state, possibleActions[i]))
 
         optimalMove = allQs.index(max(allQs))
