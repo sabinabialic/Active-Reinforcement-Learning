@@ -15,17 +15,40 @@ class td_qlearning:
     def qvalue(self, state, action):
         # returns the reward associatied with a state
         def r(state): return (-1 * state.count('1', 1, 6))
+
+        # returns the next state
+        def next(state, action):
+            pos = int(state[0])
+            # case where the current square is dirty and the action is clean
+            if ("C" in action): return state[:pos] + "0" + state[pos+1:]
+            # case where the action is up
+            elif ("U" in action):
+                if (pos == 3): return "1" + state[1:6]
+                if (pos == 5): return "3" + state[1:6]
+            # case where the action is down
+            elif ("D" in action):
+                if (pos == 1): return "3" + state[1:6]
+                if (pos == 3): return "5" + state[1:6]
+            # case where the action is right
+            elif ("R" in action):
+                if (pos == 2): return "3" + state[1:6]
+                if (pos == 3): return "4" + state[1:6]
+            # case where the action is left
+            elif ("L" in action):
+                if (pos == 4): return "3" + state[1:6]
+                if (pos == 3): return "1" + state[1:6]
+
         # state is a string representation of a state
         # action is a string representation of an action
         print("This is the state: ", state)
         print("This is the action: ", action)
         print("The number of dirty squares is: ", state.count('1', 1, 6))
+        print("The next state is: ", next(state, action))
 
+        # q = Q(state,action) + alpha(r(state) - Q(state, action) + gamma(numpy.max(Q(next state, next action) in range (possible action))))
         q = self.value + 0.1*(r(state) - self.value) #+ 0.5(numpy.max(self.qvalue(state, allActions[1])))
 
         print("The reward is: ", r(state))
-
-        # q = Q(state,action) + alpha(r(state) - Q(state, action) + gamma(numpy.max(Q(next state, next action) in range (possible action))))
 
         # update the q value for the current state
         self.value = q
@@ -47,9 +70,10 @@ class td_qlearning:
         # state is a string representation of a state
         possibleActions = moves(state)
 
+        allQs = []
         for i in possibleActions:
             # Does not work
-            allQs.append(qvalue(state, possibleActions[i]))
+            allQs.append(t.qvalue(state, possibleActions[i]))
 
         optimalMove = allQs.index(max(allQs))
 
