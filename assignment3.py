@@ -57,7 +57,7 @@ class td_qlearning:
         return q
 
     def policy(self, state):
-        def currentPosition(state): return state[0]
+        def currentPosition(state): return int(state[0])
 
         def moves(state):
             currentSquare = currentPosition(state)
@@ -65,7 +65,7 @@ class td_qlearning:
             elif currentSquare == 2: return ['C', 'R']
             elif currentSquare == 3: return ['C', 'L', 'R', 'U', 'D']
             elif currentSquare == 4: return ['C', 'L']
-            return ['C', 'U']
+            elif currentSquare == 5: ['C', 'U']
 
         # state is a string representation of a state
         possibleActions = moves(state)
