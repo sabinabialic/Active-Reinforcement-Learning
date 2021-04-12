@@ -1,8 +1,5 @@
 import numpy as np
-from collections import defaultdict
-import sys
 import csv
-import itertools
 
 
 class td_qlearning:
@@ -18,7 +15,7 @@ class td_qlearning:
         self.qLearning()
         
     
-    def qLearning(self, discount_factor = 1.0, alpha = 0.6, epsilon = 0.1):       
+    def qLearning(self, discount_factor = 1.0, alpha = 0.6, epsilon = 0.1):
         for element in self.data:
             state = element[0]
             action = element[1]
